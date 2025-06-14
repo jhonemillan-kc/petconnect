@@ -59,9 +59,7 @@ export default function LeadCaptureForm() {
     } catch (error) {
       toast({
         title: 'Error',
-        description: 'Ocurrió un error inesperado. Por favor, inténtalo de nuevo.', // Log any unexpected errors
-        description: 'Ocurrió un error inesperado. Por favor, inténtalo de nuevo.',
-        variant: 'destructive',
+        description: 'Ocurrió un error inesperado. Por favor, inténtalo de nuevo.',        variant: 'destructive',
       });
     }
   }
