@@ -1,0 +1,102 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+body {
+  font-family: 'Nunito', sans-serif; /* Updated default body font */
+}
+
+@layer base {
+  :root {
+    --background: 25 100% 98%; /* #FFF9F5 - Very light soft peach/apricot */
+    --foreground: 210 20% 30%;   /* #404D59 - Dark desaturated blue */
+
+    --card: 0 0% 100%; /* White */
+    --card-foreground: 210 20% 30%; /* Match foreground */
+
+    --popover: 0 0% 100%; /* White */
+    --popover-foreground: 210 20% 30%; /* Match foreground */
+
+    --primary: 200 70% 55%; /* #59A8DE - Gentle Sky Blue */
+    --primary-foreground: 0 0% 100%; /* White */
+
+    --secondary: 170 40% 60%; /* #73B3A2 - Soft Muted Teal */
+    --secondary-foreground: 170 30% 20%; /* #245448 - Darker teal text */
+
+    --muted: 30 30% 90%; /* #ECE5E0 - Light warm gray */
+    --muted-foreground: 30 10% 50%; /* #8A807A - Medium warm gray */
+
+    --accent: 10 80% 70%; /* #F5A28C - Soft Coral */
+    --accent-foreground: 0 0% 10%; /* Near Black for text on accent */
+
+    --destructive: 0 72.2% 50.6%; /* Standard red */
+    --destructive-foreground: 0 0% 98%; /* Light text on destructive */
+
+    --border: 30 20% 85%; /* #E0D9D4 - Light warm gray border */
+    --input: 0 0% 100%; /* White input background */
+    --ring: 10 80% 60%; /* #F28A6F - Brighter coral for focus rings */
+
+    --chart-1: 200 70% 65%;
+    --chart-2: 170 40% 70%;
+    --chart-3: 10 80% 75%;
+    --chart-4: 210 30% 50%;
+    --chart-5: 40 60% 60%;
+    --radius: 0.5rem;
+
+    --sidebar-background: 25 80% 97%; /* #FEF7F2 - Lighter version of background */
+    --sidebar-foreground: 210 20% 35%;   /* #4A5A69 - Slightly lighter foreground */
+    --sidebar-primary: 200 70% 60%;   /* #70B7E6 - Lighter primary */
+    --sidebar-primary-foreground: 0 0% 100%; /* White */
+    --sidebar-accent: 10 80% 75%;   /* #F7B19D - Lighter accent */
+    --sidebar-accent-foreground: 0 0% 10%;  /* Near Black */
+    --sidebar-border: 30 20% 90%;   /* #EAE4E0 - Lighter border */
+    --sidebar-ring: 10 80% 65%;    /* #F49D85 - Brighter accent for ring */
+  }
+
+  .dark {
+    /* Dark theme can be adjusted later to complement the new light theme.
+       Keeping original dark theme values for now.
+    */
+    --background: 0 0% 3.9%;
+    --foreground: 0 0% 98%;
+    --card: 0 0% 3.9%;
+    --card-foreground: 0 0% 98%;
+    --popover: 0 0% 3.9%;
+    --popover-foreground: 0 0% 98%;
+    --primary: 0 0% 98%;
+    --primary-foreground: 0 0% 9%;
+    --secondary: 0 0% 14.9%;
+    --secondary-foreground: 0 0% 98%;
+    --muted: 0 0% 14.9%;
+    --muted-foreground: 0 0% 63.9%;
+    --accent: 0 0% 14.9%;
+    --accent-foreground: 0 0% 98%;
+    --destructive: 0 62.8% 30.6%;
+    --destructive-foreground: 0 0% 98%;
+    --border: 0 0% 14.9%;
+    --input: 0 0% 14.9%;
+    --ring: 0 0% 83.1%;
+    --chart-1: 220 70% 50%;
+    --chart-2: 160 60% 45%;
+    --chart-3: 30 80% 55%;
+    --chart-4: 280 65% 60%;
+    --chart-5: 340 75% 55%;
+    --sidebar-background: 240 5.9% 10%;
+    --sidebar-foreground: 240 4.8% 95.9%;
+    --sidebar-primary: 224.3 76.3% 48%;
+    --sidebar-primary-foreground: 0 0% 100%;
+    --sidebar-accent: 240 3.7% 15.9%;
+    --sidebar-accent-foreground: 240 4.8% 95.9%;
+    --sidebar-border: 240 3.7% 15.9%;
+    --sidebar-ring: 217.2 91.2% 59.8%;
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+  body {
+    @apply bg-background text-foreground;
+  }
+}
