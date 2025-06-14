@@ -7,7 +7,7 @@ import { getFirestore, type Firestore } from "firebase/firestore";
 // TODO: Replace with your actual Firebase project configuration
 // For Firebase JS SDK v7.20.0 and later, measurementId is optional
 const firebaseConfig = {
-  apiKey: "AIzaSyCZYduI9Do0rms-mnoCYaflHyb3hc193Ss",
+  apiKey: process.env.FIREBASE_API_KEY,
   authDomain: "petconnect-a447d.firebaseapp.com",
   projectId: "petconnect-a447d",
   storageBucket: "petconnect-a447d.firebasestorage.app",
