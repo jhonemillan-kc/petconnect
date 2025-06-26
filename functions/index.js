@@ -3,14 +3,20 @@ const { SESv2Client, SendEmailCommand } = require("@aws-sdk/client-sesv2");
 const handlebars = require("handlebars");
 const fs = require("fs");
 const path = require("path");
+const {defineSecret} = require('firebase-functions/params');
+
+const awsRegion = defineSecret('AWS_REGION');
+const awsKey = defineSecret('AWS_ACCESS_KEY_ID');
+const awsSecret = defineSecret('AWS_SECRET_ACCESS_KEY');
+
 
 // --- Configuración Inicial ---
 // Inicializa el cliente de SES con las credenciales seguras
 const sesClient = new SESv2Client({
-  region: process.env.AWS_REGION,
+  region: awsRegion.value(),
   credentials: {
-    accessKeyId: process.env.AWS_ACCESS_KEY_ID,
-    secretAccessKey: process.env.AWS_SECRET_ACCESS_KEY,
+    accessKeyId: awsKey.value(),
+    secretAccessKey: awsSecret.value(),
   },
 });
 
