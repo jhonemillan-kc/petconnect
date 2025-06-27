@@ -1,10 +1,9 @@
-
 "use server";
 
 import type { LeadFormData, ServerActionResponse } from '@/lib/types';
 import { leadSchema } from '@/lib/types';
-import { adminDB } from '@/lib/firebase/admin'; // Firebase Admin DB
-import { Timestamp } from 'firebase-admin/firestore'; // Import Timestamp
+import { adminDB } from '@/lib/firebase/admin';
+import { Timestamp } from 'firebase-admin/firestore';
 
 export async function submitLead(
   formData: LeadFormData
@@ -20,27 +19,17 @@ export async function submitLead(
 
   const data = validationResult.data;
 
-  // Check if adminDB was initialized correctly
-  if (!adminDB) {
-    console.error("Error: adminDB is not initialized. Cannot save lead to Firestore. Check Firebase Admin SDK initialization in src/lib/firebase/admin.ts and environment variables.");
-    return {
-      success: false,
-      message: "Error interno del servidor: No se pudo conectar a la base de datos. Por favor, inténtalo más tarde o contacta al soporte.",
-    };
-  }
-
   try {
-    const leadCollection = adminDB.collection('leads');
-    const newLeadRef = leadCollection.doc(); // Create a new document reference with an auto-generated ID
+    if (!adminDB) {
+      throw new Error('Firebase Admin not initialized');
+    }
 
-    await newLeadRef.set({
+    const docRef = await adminDB.collection('leads').add({
       name: data.name,
       email: data.email,
       role: data.role,
-      submittedAt: Timestamp.now(), // Use Firestore Timestamp for server-side timestamping
+      submittedAt: Timestamp.now(),
     });
-
-    console.log("Lead data successfully saved to Firestore with ID:", newLeadRef.id);
 
     return {
       success: true,
@@ -51,8 +40,6 @@ export async function submitLead(
   } catch (error) {
     console.error("Error al guardar el lead en Firestore:", error);
     let errorMessage = "Ocurrió un error al procesar tu solicitud. Por favor, inténtalo de nuevo.";
-    // In a production environment, you might want to log error.message
-    // but not necessarily expose it directly to the user.
     return {
       success: false,
       message: errorMessage,

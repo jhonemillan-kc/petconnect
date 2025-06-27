@@ -8,9 +8,7 @@ let db: Firestore;
 
 if (getApps().length === 0) {
   try {
-    app = initializeApp();
-    console.log("Firebase client app initialized.");
-    db = getFirestore(app);
+console.log('entra')
   } catch (error) {
     console.error("Firebase client initialization error:", error);
 

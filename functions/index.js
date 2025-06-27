@@ -1,36 +1,36 @@
-const functions = require("firebase-functions");
+const functions = require('firebase-functions/v1');
+const admin = require("firebase-admin");
 const { SESv2Client, SendEmailCommand } = require("@aws-sdk/client-sesv2");
 const handlebars = require("handlebars");
 const fs = require("fs");
 const path = require("path");
-const {defineSecret} = require('firebase-functions/params');
 
-const awsRegion = defineSecret('AWS_REGION');
-const awsKey = defineSecret('AWS_ACCESS_KEY_ID');
-const awsSecret = defineSecret('AWS_SECRET_ACCESS_KEY');
+// Initialize Firebase Admin
+admin.initializeApp();
 
 
-// --- Configuración Inicial ---
-// Inicializa el cliente de SES con las credenciales seguras
-const sesClient = new SESv2Client({
-  region: awsRegion.value(),
-  credentials: {
-    accessKeyId: awsKey.value(),
-    secretAccessKey: awsSecret.value(),
-  },
-});
 
 // Carga y compila la plantilla HTML al iniciar la función
 const source = fs.readFileSync(path.join(__dirname, "welcome.html"), "utf8");
 const template = handlebars.compile(source);
 
 // --- La Cloud Function ---
-exports.sendWelcomeEmail = functions.firestore
-  .document("usuarios/{userId}") // Escucha la colección 'usuarios'
+exports.sendWelcomeEmail = functions
+  .firestore
+  .document("leads/{leadId}")
   .onCreate(async (snap, context) => {
-    const userData = snap.data();
-    const userEmail = userData.email;
-    const userName = userData.nombre || "Amigo de las Mascotas"; // Nombre por defecto
+    // Initialize SES client at runtime
+    const sesClient = new SESv2Client({
+      region: functions.config().aws.region,
+      credentials: {
+        accessKeyId: functions.config().aws.key,
+        secretAccessKey: functions.config().aws.secret
+      },
+    });
+  
+  const userData = snap.data();
+  const userEmail = userData.email;
+    const userName = userData.name || "Amigo de las Mascotas"; // Nombre por defecto
 
     // Prepara los datos que se insertarán en la plantilla
     const templateData = {
@@ -43,7 +43,7 @@ exports.sendWelcomeEmail = functions.firestore
 
     // Define los parámetros para el envío del correo
     const params = {
-      FromEmailAddress: '"PetConnect" <hola@petconnect.co>', // TU EMAIL VERIFICADO EN SES
+      FromEmailAddress: '"PetConnect" <ceo@petsconnect.co>', // TU EMAIL VERIFICADO EN SES
       Destination: {
         ToAddresses: [userEmail],
       },
