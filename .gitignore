@@ -57,3 +57,4 @@ dist/
 # If you have other output directories for TypeScript, add them here.
 # For example, if your tsconfig.json has "outDir": "lib"
 # lib/
+.vercel

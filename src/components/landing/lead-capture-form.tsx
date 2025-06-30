@@ -74,7 +74,7 @@ export default function LeadCaptureForm() {
             </div>
             <CardTitle className="font-headline text-3xl sm:text-4xl text-foreground">¡Sé el Primero en Enterarte!</CardTitle>
             <CardDescription className="text-muted-foreground text-lg pt-2">
-              Únete a nuestra lista de espera y recibe una notificación cuando PetConnect se lance.
+              Únete a nuestra lista de espera y recibe una notificación cuando PetsConnect se lance.
             </CardDescription>
           </CardHeader>
           <CardContent>

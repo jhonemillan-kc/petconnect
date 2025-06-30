@@ -8,7 +8,7 @@ export default function Header() {
       <div className="max-w-7xl mx-auto flex justify-between items-center">
         <Link href="/" className="flex items-center space-x-2">
           <PawPrint className="h-8 w-8 text-primary" />
-          <h1 className="text-2xl font-headline font-semibold text-foreground">PetConnect</h1>
+          <h1 className="text-2xl font-headline font-semibold text-foreground">PetsConnect</h1>
         </Link>
         <Button asChild variant="outline" className="border-accent text-accent-foreground hover:bg-accent/10 hover:text-accent-foreground">
           <Link href="#lead-form">Únete a la Lista de Espera</Link>

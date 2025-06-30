@@ -3,7 +3,7 @@ import './globals.css';
 import { Toaster } from "@/components/ui/toaster";
 
 export const metadata: Metadata = {
-  title: 'PetConnect Latinoamérica',
+  title: 'PetsConnect Latinoamérica',
   description: 'Encuentra a tu compañero perfecto. Conectando hogares amorosos con mascotas adorables.',
 };
 

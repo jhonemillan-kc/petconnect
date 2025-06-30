@@ -29,7 +29,7 @@ export default function SuccessStories() {
             El Impacto Que Crearemos Juntos
           </h2>
           <p className="text-lg text-muted-foreground max-w-3xl mx-auto">
-            En PetConnect, estamos construyendo más que una plataforma; estamos creando un movimiento para transformar la adopción de mascotas en Latinoamérica. Únete a nuestra lista de espera y sé parte del cambio desde el inicio.
+            En PetsConnect, estamos construyendo más que una plataforma; estamos creando un movimiento para transformar la adopción de mascotas en Latinoamérica. Únete a nuestra lista de espera y sé parte del cambio desde el inicio.
           </p>
         </div>
         <div className="grid md:grid-cols-1 lg:grid-cols-3 gap-8">
