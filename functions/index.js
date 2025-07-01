@@ -1,78 +1,84 @@
-const functions = require('firebase-functions/v1');
-const admin = require("firebase-admin");
-const { SESv2Client, SendEmailCommand } = require("@aws-sdk/client-sesv2");
-const handlebars = require("handlebars");
-const fs = require("fs");
-const path = require("path");
+// functions/index.js
+const { onDocumentCreated } = require("firebase-functions/v2/firestore");
+const { defineSecret } = require("firebase-functions/params");
+const sgMail = require("@sendgrid/mail");
 
-// Initialize Firebase Admin
-admin.initializeApp();
+const sendgridApiKey = defineSecret("SENDGRID_API_KEY");
 
-
-
-// Carga y compila la plantilla HTML al iniciar la función
-const source = fs.readFileSync(path.join(__dirname, "welcome.html"), "utf8");
-const template = handlebars.compile(source);
-
-// --- La Cloud Function ---
-exports.sendWelcomeEmail = functions
-  .firestore
-  .document("leads/{leadId}")
-  .onCreate(async (snap, context) => {
-    // Initialize SES client at runtime
-    const sesClient = new SESv2Client({
-      region: functions.config().aws.region,
-      credentials: {
-        accessKeyId: functions.config().aws.key,
-        secretAccessKey: functions.config().aws.secret
-      },
-    });
-  
-  const userData = snap.data();
-  const userEmail = userData.email;
-    const userName = userData.name || "Amigo de las Mascotas"; // Nombre por defecto
-
-    // Prepara los datos que se insertarán en la plantilla
-    const templateData = {
-      userName: userName,
-      currentYear: new Date().getFullYear(),
-    };
-
-    // Genera el HTML final con los datos del usuario
-    const finalHtml = template(templateData);
-
-    // Define los parámetros para el envío del correo
-    const params = {
-      FromEmailAddress: '"PetConnect" <ceo@petsconnect.co>', // TU EMAIL VERIFICADO EN SES
-      Destination: {
-        ToAddresses: [userEmail],
-      },
-      Content: {
-        Simple: {
-          Subject: {
-            Data: "¡Gracias por unirte a la familia PetConnect! 🐾",
-            Charset: "UTF-8",
-          },
-          Body: {
-            Html: {
-              Data: finalHtml,
-              Charset: "UTF-8",
-            },
-            Text: {
-              Data: `¡Hola ${userName}! Gracias por registrarte en PetConnect. Nos pondremos en contacto contigo pronto.`,
-              Charset: "UTF-8",
-            },
-          },
-        },
-      },
-    };
-
-    // Envía el correo usando el comando de SES
-    try {
-      const command = new SendEmailCommand(params);
-      await sesClient.send(command);
-      console.log(`Correo de bienvenida enviado exitosamente a ${userEmail}`);
-    } catch (error) {
-      console.error("Error al enviar correo con SES:", error);
+exports.sendWelcomeEmailToLead = onDocumentCreated(
+  {
+    document: "leads/{leadId}",
+    database: "contacts",
+    secrets: [sendgridApiKey],
+    region: "us-central1",
+  },
+  async (event) => {
+    if (!event.data) {
+      console.log("No data found in the event.");
+      return null;
     }
-  });
+
+    sgMail.setApiKey(sendgridApiKey.value());
+    const snapshot = event.data;
+    const leadData = snapshot.data();
+    const leadRef = snapshot.ref;
+
+    const recipientEmail = leadData.email;
+    const userName = leadData.name || "New User";
+
+    if (!recipientEmail) {
+      console.warn("Lead document has no email address. Skipping email send.");
+      await leadRef.update({
+        emailSendStatus: "skipped",
+        emailErrorMessage: "No recipient email",
+      });
+      return null;
+    }
+
+    if (leadData.emailSent === true) {
+      console.log(`Email already sent for lead ${recipientEmail}. Skipping.`);
+      return null;
+    }
+
+    console.log(`Attempting to send welcome email to ${recipientEmail}...`);
+
+    const msg = {
+      to: {
+        email: recipientEmail,
+        name: userName,
+      },
+      from: {
+        email: "ceo@petsconnect.co",
+        name: "Pets Connect",
+      },
+      templateId: "d-b1b0dc9121c14159a6dfae2fc966a5ca",
+      subject: 'Gracias por unirte a la familia Pets Connect! 🐾',
+      dynamicTemplateData: {
+        userName: userName,
+        currentYear: new Date().getFullYear(),
+      },
+    };
+
+    try {
+      await sgMail.send(msg);
+      console.log(
+        `Correo de bienvenida enviado exitosamente a ${recipientEmail}`
+      );
+      await leadRef.update({
+        emailSent: true
+      });
+      console.log(`Lead ${recipientEmail} marked as emailSent.`);
+      return;
+    } catch (error) {
+      console.error(`Error sending email to ${recipientEmail}:`, error);
+      await leadRef.update({
+        emailSent: false,
+        emailSendStatus: "failed",
+        emailErrorMessage: error.message
+      });
+      throw new Error(
+        `Failed to send welcome email to ${recipientEmail}: ${error.message}`
+      );
+    }
+  }
+);

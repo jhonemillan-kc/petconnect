@@ -3,7 +3,7 @@
 import type { LeadFormData, ServerActionResponse } from '@/lib/types';
 import { leadSchema } from '@/lib/types';
 import { adminDB } from '@/lib/firebase/admin';
-import { Timestamp } from 'firebase-admin/firestore';
+import { Timestamp, getFirestore } from 'firebase-admin/firestore';
 
 export async function submitLead(
   formData: LeadFormData
@@ -19,12 +19,14 @@ export async function submitLead(
 
   const data = validationResult.data;
 
+  const db = getFirestore('contacts');
+
   try {
     if (!adminDB) {
       throw new Error('Firebase Admin not initialized');
     }
 
-    const docRef = await adminDB.collection('leads').add({
+    const docRef = await db.collection('leads').add({
       name: data.name,
       email: data.email,
       role: data.role,
