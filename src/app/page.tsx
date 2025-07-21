@@ -9,7 +9,7 @@ import Footer from '@/components/landing/footer';
 export default function LandingPage() {
   return (
     <div className="flex flex-col min-h-screen bg-background text-foreground">
-      <Header />
+      <Header showWaitlistButton={true} />
       <main className="flex-grow">
         <HeroSection />
         <ValueProposition />
