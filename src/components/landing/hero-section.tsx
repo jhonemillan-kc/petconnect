@@ -15,10 +15,10 @@ export default function HeroSection() {
               Un Hogar Cambia Su Mundo. <span className="text-primary-foreground drop-shadow-sm">Tú Tienes la Llave.</span>
             </h2>
             <p className="text-lg text-muted-foreground mb-8 max-w-lg mx-auto md:mx-0">
-              Imagina la alegría en sus ojos. Cientos de mascotas esperan una familia que les brinde amor y seguridad. PetsConnect será el puente hacia ese encuentro inolvidable. ¡Únete a la lista de espera y sé el primero en abrir tu corazón y tu hogar!
+              Imagina la alegría en sus ojos. Cientos de mascotas esperan una familia que les brinde amor y seguridad. PetsConnect es el puente hacia ese encuentro inolvidable. ¡Descubre a tu compañero perfecto y abre tu corazón a una nueva amistad!
             </p>
             <Button asChild size="lg" className="bg-accent text-accent-foreground hover:bg-accent/90 shadow-lg">
-              <Link href="#lead-form">Únete Hoy a la Lista de Espera</Link>
+              <Link href="/pets">Conoce Nuestras Mascotas</Link>
             </Button>
           </div>
           <div className="relative h-64 md:h-96 rounded-lg shadow-2xl overflow-hidden group">

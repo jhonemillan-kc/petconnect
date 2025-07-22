@@ -5,14 +5,15 @@ import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { X, Heart, Mail, User, MapPin, Phone, Briefcase, Home, Globe } from 'lucide-react';
+import { Pet } from '@/lib/types/pet';
 
 interface AdoptionFormModalProps {
   isOpen: boolean;
   onClose: () => void;
-  petName: string;
+  pet: Pet;
 }
 
-export default function AdoptionFormModal({ isOpen, onClose, petName }: AdoptionFormModalProps) {
+export default function AdoptionFormModal({ isOpen, onClose, pet }: AdoptionFormModalProps) {
   const [formData, setFormData] = useState({
     name: '',
     email: '',
@@ -28,6 +29,8 @@ export default function AdoptionFormModal({ isOpen, onClose, petName }: Adoption
   });
 
   const [errors, setErrors] = useState<{[key: string]: string}>({});
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [submitSuccess, setSubmitSuccess] = useState(false);
 
   // Función para validar email
   const validateEmail = (email: string): boolean => {
@@ -41,7 +44,7 @@ export default function AdoptionFormModal({ isOpen, onClose, petName }: Adoption
     return phoneRegex.test(phone.replace(/\s/g, ''));
   };
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     
     // Resetear errores
@@ -69,10 +72,68 @@ export default function AdoptionFormModal({ isOpen, onClose, petName }: Adoption
       return;
     }
 
-    // TODO: Aquí irá la lógica para enviar el formulario
-    console.log('Formulario enviado:', formData);
-    // Por ahora solo cerramos el modal
-    onClose();
+    // Preparar datos para enviar al API
+    const adoptionData = {
+      ...formData,
+      petId: pet.id,
+      petName: pet.name,
+      petType: pet.type,
+      petAge: pet.age,
+      petSex: pet.sex,
+      petSize: pet.size
+    };
+
+    try {
+      setIsSubmitting(true);
+      
+      // Enviar al API route
+      const response = await fetch('/api/adoption', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(adoptionData),
+      });
+
+      const result = await response.json();
+
+      if (!response.ok) {
+        throw new Error(result.error || 'Error al enviar la solicitud');
+      }
+
+      console.log('Solicitud guardada con ID:', result.id);
+      
+      // Mostrar mensaje de éxito
+      setSubmitSuccess(true);
+      
+      // Cerrar modal después de 2 segundos
+      setTimeout(() => {
+        setSubmitSuccess(false);
+        onClose();
+        // Resetear formulario
+        setFormData({
+          name: '',
+          email: '',
+          age: '',
+          city: '',
+          neighborhood: '',
+          phone: '',
+          occupation: '',
+          housingType: '',
+          housingOwnership: '',
+          nationality: '',
+          agreesToProcess: false
+        });
+      }, 2000);
+      
+    } catch (error) {
+      console.error('Error al enviar solicitud:', error);
+      setErrors({ 
+        submit: error instanceof Error ? error.message : 'Error al enviar la solicitud' 
+      });
+    } finally {
+      setIsSubmitting(false);
+    }
   };
 
   const handleInputChange = (field: string, value: string | boolean) => {
@@ -117,7 +178,7 @@ export default function AdoptionFormModal({ isOpen, onClose, petName }: Adoption
             </div>
             <div>
               <h2 className="text-xl font-headline font-bold">
-                ¡Quiero adoptar a {petName}!
+                ¡Quiero adoptar a {pet.name}!
               </h2>
               <p className="text-sm opacity-90">
                 Completa tus datos para comenzar
@@ -363,13 +424,32 @@ export default function AdoptionFormModal({ isOpen, onClose, petName }: Adoption
               </div>
             </div>
 
+            {/* Mensaje de error general */}
+            {errors.submit && (
+              <div className="bg-red-50 border border-red-200 rounded-lg p-4">
+                <p className="text-sm text-red-600 text-center">{errors.submit}</p>
+              </div>
+            )}
+
+            {/* Mensaje de éxito */}
+            {submitSuccess && (
+              <div className="bg-green-50 border border-green-200 rounded-lg p-4">
+                <p className="text-sm text-green-600 text-center">
+                  <Heart className="w-4 h-4 inline mr-1" />
+                  ¡Solicitud enviada exitosamente! Nos pondremos en contacto contigo pronto.
+                </p>
+              </div>
+            )}
+
             {/* Mensaje motivacional */}
-            <div className="bg-accent/10 rounded-lg p-4">
-              <p className="text-sm text-muted-foreground text-center">
-                <Heart className="w-4 h-4 inline mr-1 text-accent" />
-                {petName} está emocionado por conocerte. Nos pondremos en contacto contigo pronto para coordinar una visita.
-              </p>
-            </div>
+            {!submitSuccess && (
+              <div className="bg-accent/10 rounded-lg p-4">
+                <p className="text-sm text-muted-foreground text-center">
+                  <Heart className="w-4 h-4 inline mr-1 text-accent" />
+                  {pet.name} está emocionado por conocerte. Nos pondremos en contacto contigo pronto para coordinar una visita.
+                </p>
+              </div>
+            )}
 
             {/* Botones */}
             <div className="flex space-x-3 pt-4">
@@ -378,16 +458,26 @@ export default function AdoptionFormModal({ isOpen, onClose, petName }: Adoption
                 variant="outline"
                 onClick={onClose}
                 className="flex-1 py-3"
+                disabled={isSubmitting}
               >
                 Cancelar
               </Button>
               <Button
                 type="submit"
-                disabled={!formData.agreesToProcess}
+                disabled={!formData.agreesToProcess || isSubmitting || submitSuccess}
                 className="flex-1 bg-accent hover:bg-accent/90 text-accent-foreground py-3 font-medium disabled:opacity-50 disabled:cursor-not-allowed"
               >
-                <Heart className="w-4 h-4 mr-2" />
-                Enviar solicitud
+                {isSubmitting ? (
+                  <>
+                    <div className="animate-spin rounded-full h-4 w-4 border-b-2 border-white mr-2"></div>
+                    Enviando...
+                  </>
+                ) : (
+                  <>
+                    <Heart className="w-4 h-4 mr-2" />
+                    Enviar solicitud
+                  </>
+                )}
               </Button>
             </div>
           </form>

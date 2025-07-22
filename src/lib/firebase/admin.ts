@@ -1,4 +1,5 @@
-const admin = require('firebase-admin');
+import admin from 'firebase-admin';
+import { getFirestore } from 'firebase-admin/firestore';
 import type { Firestore } from 'firebase-admin/firestore';
 
 let adminDB: Firestore | undefined;
@@ -8,17 +9,26 @@ if (admin.apps.length === 0) {
   try {
     admin.initializeApp({
       credential: admin.credential.cert({
-        project_id: process.env.FIREBASE_PROJECT_ID,
-        client_email: process.env.FIREBASE_CLIENT_EMAIL,
-        private_key: process.env.FIREBASE_PRIVATE_KEY?.replace(/\\n/g, '\n').replace(/"/g, ''),
+        projectId: process.env.FIREBASE_PROJECT_ID,
+        clientEmail: process.env.FIREBASE_CLIENT_EMAIL,
+        privateKey: process.env.FIREBASE_PRIVATE_KEY?.replace(/\\n/g, '\n').replace(/"/g, ''),
       })
     });
+    console.log('Firebase Admin initialized successfully');
   } catch (error: any) {
     console.error('Firebase Admin initialization error:', error);
   }
 }
 
-// Always get the firestore instance from the (possibly already initialized) app
-adminDB = admin.firestore();
+// Get the firestore instance with the 'contacts' database
+try {
+  adminDB = getFirestore(admin.app(), 'contacts');
+  console.log('Connected to Firestore database: contacts');
+} catch (error) {
+  console.error('Error connecting to Firestore database contacts:', error);
+  // Fallback to default database
+  adminDB = getFirestore(admin.app());
+  console.log('Connected to default Firestore database');
+}
 
 export { adminDB }; 

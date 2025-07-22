@@ -231,7 +231,7 @@ function PetPageContent({ pet }: { pet: typeof samplePets[0] }) {
       <AdoptionFormModal 
         isOpen={isModalOpen}
         onClose={() => setIsModalOpen(false)}
-        petName={pet.name}
+        pet={pet}
       />
     </div>
   );
