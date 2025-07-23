@@ -30,6 +30,11 @@ export const samplePets: Pet[] = [
       ]
     },
     adoptionStatus: 'Disponible',
+    city: 'Medellin',
+    petFilters: {
+      age: 25,
+      nationality: 'colombia'
+    },
     shelter: {
       name: 'Refugio Patitas Felices',
       contact: '+57 301 234 5678',
@@ -68,6 +73,11 @@ export const samplePets: Pet[] = [
       ]
     },
     adoptionStatus: 'Disponible',
+    city: 'Medellin',
+    petFilters: {
+      age: 25,
+      nationality: 'colombia'
+    },
     shelter: {
       name: 'Refugio Patitas Felices',
       contact: '+57 301 234 5678',
@@ -105,6 +115,11 @@ export const samplePets: Pet[] = [
       ]
     },
     adoptionStatus: 'Disponible',
+    city: 'Medellin',
+    petFilters: {
+      age: 25,
+      nationality: 'colombia'
+    },
     shelter: {
       name: 'Refugio Patitas Felices',
       contact: '+57 301 234 5678',
@@ -142,6 +157,11 @@ export const samplePets: Pet[] = [
       ]
     },
     adoptionStatus: 'Disponible',
+    city: 'Medellin',
+    petFilters: {
+      age: 25,
+      nationality: 'colombia'
+    },
     shelter: {
       name: 'Refugio Patitas Felices',
       contact: '+57 301 234 5678',
@@ -179,6 +199,11 @@ export const samplePets: Pet[] = [
       ]
     },
     adoptionStatus: 'Disponible',
+    city: 'Medellin',
+    petFilters: {
+      age: 25,
+      nationality: 'colombia'
+    },
     shelter: {
       name: 'Refugio Patitas Felices',
       contact: '+57 301 234 5678',
@@ -217,6 +242,11 @@ export const samplePets: Pet[] = [
       ]
     },
     adoptionStatus: 'Disponible',
+    city: 'Medellin',
+    petFilters: {
+      age: 25,
+      nationality: 'colombia'
+    },
     shelter: {
       name: 'Refugio Patitas Felices',
       contact: '+57 301 234 5678',
@@ -254,6 +284,11 @@ export const samplePets: Pet[] = [
       ]
     },
     adoptionStatus: 'Disponible',
+    city: 'Medellin',
+    petFilters: {
+      age: 25,
+      nationality: 'colombia'
+    },
     shelter: {
       name: 'Refugio Patitas Felices',
       contact: '+57 301 234 5678',
@@ -291,6 +326,11 @@ export const samplePets: Pet[] = [
       ]
     },
     adoptionStatus: 'Disponible',
+    city: 'Medellin',
+    petFilters: {
+      age: 25,
+      nationality: 'colombia'
+    },
     shelter: {
       name: 'Refugio Patitas Felices',
       contact: '+57 301 234 5678',

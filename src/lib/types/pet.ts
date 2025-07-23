@@ -35,6 +35,15 @@ export interface Pet {
   // Estado de adopción
   adoptionStatus: 'Disponible' | 'Adoptada';
   
+  // Ubicación de la mascota
+  city: string;
+  
+  // Filtros/requisitos para adopción
+  petFilters: {
+    age: number; // Minimum age required for adopter
+    nationality: string; // Required nationality of adopter
+  };
+  
   // Información del refugio (para uso interno, no mostrar al usuario)
   shelter: {
     name: string;

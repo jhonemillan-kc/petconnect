@@ -24,6 +24,10 @@ interface AdoptionFormData {
   petAge: { years?: number; months?: number };
   petSex: string;
   petSize: string;
+  petFilters: {
+    age: number;
+    nationality: string;
+  };
 }
 
 export async function POST(request: NextRequest) {
@@ -69,7 +73,8 @@ export async function POST(request: NextRequest) {
         type: formData.petType,
         age: formData.petAge,
         sex: formData.petSex,
-        size: formData.petSize
+        size: formData.petSize,
+        filters: formData.petFilters
       },
       
       // Metadata

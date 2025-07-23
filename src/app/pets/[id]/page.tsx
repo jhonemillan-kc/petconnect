@@ -155,6 +155,7 @@ function PetPageContent({ pet }: { pet: typeof samplePets[0] }) {
                   <InfoItem label="Edad" value={formatAge(pet.age)} />
                   <SexInfoItem label="Sexo" sex={pet.sex} />
                   <InfoItem label="Tamaño" value={pet.size} />
+                  <CityInfoItem label="Ciudad" city={pet.city} />
                 </div>
               </section>
 
@@ -273,6 +274,18 @@ function SexInfoItem({ label, sex }: { label: string; sex: 'Macho' | 'Hembra' })
           <HeartHandshake className="w-4 h-4 text-pink-500 mr-1" />
         )}
         {sex}
+      </span>
+    </div>
+  );
+}
+
+function CityInfoItem({ label, city }: { label: string; city: string }) {
+  return (
+    <div className="flex justify-between">
+      <span className="text-muted-foreground">{label}:</span>
+      <span className="font-medium text-foreground flex items-center">
+        <MapPin className="w-4 h-4 text-green-600 mr-1" />
+        {city}
       </span>
     </div>
   );
