@@ -3,7 +3,7 @@ import Footer from '@/components/landing/footer';
 import { samplePets, formatAge } from '@/data/pets';
 import Link from 'next/link';
 import Image from 'next/image';
-import { Heart, HeartHandshake } from 'lucide-react';
+import { Heart, HeartHandshake, MapPin } from 'lucide-react';
 
 export default function PetsPage() {
   const allPets = samplePets; // Mostrar todas las mascotas
@@ -104,6 +104,13 @@ function PetCard({ pet }: { pet: typeof samplePets[0] }) {
                   <HeartHandshake className="w-4 h-4 text-pink-500 mr-1" />
                 )}
                 {pet.sex}
+              </span>
+            </p>
+            <p className="flex items-center">
+              <span className="font-medium">Ciudad:</span> 
+              <span className="ml-2 flex items-center">
+                <MapPin className="w-4 h-4 text-green-600 mr-1" />
+                {pet.city}
               </span>
             </p>
           </div>

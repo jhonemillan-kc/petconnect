@@ -339,6 +339,48 @@ export const samplePets: Pet[] = [
     createdAt: '2023-09-08T10:00:00Z',
     updatedAt: '2024-01-15T10:00:00Z',
     featured: false
+  },
+  {
+    id: 'sasha-009',
+    name: 'Sasha',
+    type: 'Perro',
+    age: { months: 10 },
+    sex: 'Hembra',
+    size: 'Mediano',
+    health: {
+      dewormed: true,
+      vaccinated: true,
+      sterilized: true,
+      vaccineDetails: ['Rabia', 'Múltiple']
+    },
+    rescueStory: {
+      origin: 'Rescatada de la calle',
+      rescueDate: '2024-01-10',
+      condition: 'En buen estado',
+      story: 'Sasha es una perrita muy dulce y cariñosa. Le encanta jugar y es muy sociable con otros perros y personas. Está buscando una familia que le dé mucho amor y cuidado.'
+    },
+    images: {
+      main: 'https://drive.google.com/uc?export=view&id=1er4dw5r7mhzTyzMxSvKTZON3pvqYPwRK',
+      gallery: [
+        'https://drive.google.com/uc?export=view&id=1er4dw5r7mhzTyzMxSvKTZON3pvqYPwRK',
+        'https://drive.google.com/uc?export=view&id=1ejyfecqEdJJGaQYufDYAe_3YvYwXyxBi',
+        'https://drive.google.com/uc?export=view&id=1eiuT6SMaGRqiPeDFFR-wckxnSk-FxTU5'
+      ]
+    },
+    adoptionStatus: 'Adoptada',
+    city: 'Cali',
+    petFilters: {
+      age: 25,
+      nationality: 'colombia'
+    },
+    shelter: {
+      name: 'Refugio Patitas Felices',
+      contact: '+57 301 234 5678',
+      location: 'Bogotá, Colombia'
+    },
+    createdAt: '2024-01-10T10:00:00Z',
+    updatedAt: '2024-01-15T10:00:00Z',
+    featured: false
   }
 ];
 
