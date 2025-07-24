@@ -9,6 +9,7 @@ const TEMPLATE_IDS = {
   GOOD: "d-b7108b901c5e4aebb009da02155a4af2",
   MAYBE: "d-351c5b1ea3c0457392dfee24a62ad855",
   INVALID: "d-6d170c5e27e84969a070e6b8c530b631",
+  SHELTER: "d-f80aa2073040401280d5cfd8951d6614",
 };
 
 exports.sendWelcomeEmailToLead = onDocumentCreated(
@@ -83,6 +84,32 @@ exports.sendWelcomeEmailToLead = onDocumentCreated(
       },
     };
 
+    const msgAdoptionCenter = {
+      to: {
+        email: leadData.pet.shelterEmail,
+        name: 'Centro de adopción',
+      },
+      from: {
+        email: "ceo@petsconnect.co",
+        name: "Pets Connect",
+      },
+      templateId: TEMPLATE_IDS.SHELTER,
+      subject: 'Gracias por unirte a la familia Pets Connect! 🐾',
+      dynamicTemplateData: {
+        adopter: {
+          name: leadData.adopter.name,
+          age: leadData.adopter.age,
+          email: leadData.adopter.email,
+          phone: leadData.adopter.phone,
+          city: leadData.adopter.location.city,
+        },
+        pet: {
+          name: leadData.pet.name,
+        },
+        currentYear: new Date().getFullYear(),
+      },
+    };
+
     try {
       await sgMail.send(msg);
       console.log(
@@ -91,6 +118,7 @@ exports.sendWelcomeEmailToLead = onDocumentCreated(
       await leadRef.update({
         emailSent: true
       });
+      await sgMail.send(msgAdoptionCenter);
       console.log(`Lead ${recipientEmail} marked as emailSent.`);
       return;
     } catch (error) {

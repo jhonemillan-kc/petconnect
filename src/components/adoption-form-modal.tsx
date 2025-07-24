@@ -81,7 +81,7 @@ export default function AdoptionFormModal({ isOpen, onClose, pet }: AdoptionForm
       petAge: pet.age,
       petSex: pet.sex,
       petSize: pet.size,
-      petFilters: pet.petFilters
+              petFilters: pet.petFilters
     };
 
     try {

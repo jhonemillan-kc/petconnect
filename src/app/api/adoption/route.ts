@@ -1,6 +1,7 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { adminDB } from '@/lib/firebase/admin';
 import { FieldValue } from 'firebase-admin/firestore';
+import { samplePets } from '@/data/pets';
 
 // Interface for the adoption form data
 interface AdoptionFormData {
@@ -74,7 +75,8 @@ export async function POST(request: NextRequest) {
         age: formData.petAge,
         sex: formData.petSex,
         size: formData.petSize,
-        filters: formData.petFilters
+        filters: formData.petFilters,
+        shelterEmail: samplePets.find(pet => pet.id === formData.petId)?.shelter.email
       },
       
       // Metadata

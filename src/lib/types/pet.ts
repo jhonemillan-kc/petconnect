@@ -48,6 +48,7 @@ export interface Pet {
   shelter: {
     name: string;
     contact: string;
+    email: string;
     location: string;
   };
   

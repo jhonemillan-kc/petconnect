@@ -38,7 +38,8 @@ export const samplePets: Pet[] = [
     shelter: {
       name: 'Refugio Patitas Felices',
       contact: '+57 301 234 5678',
-      location: 'Bogotá, Colombia'
+      location: 'Bogotá, Colombia',
+      email: 'funcoramed@gmail.com'
     },
     createdAt: '2023-06-15T10:00:00Z',
     updatedAt: '2024-01-15T10:00:00Z',
@@ -81,6 +82,7 @@ export const samplePets: Pet[] = [
     shelter: {
       name: 'Refugio Patitas Felices',
       contact: '+57 301 234 5678',
+      email: 'funcoramed@gmail.com',
       location: 'Bogotá, Colombia'
     },
     createdAt: '2024-02-20T10:00:00Z',
@@ -123,7 +125,8 @@ export const samplePets: Pet[] = [
     shelter: {
       name: 'Refugio Patitas Felices',
       contact: '+57 301 234 5678',
-      location: 'Bogotá, Colombia'
+      location: 'Bogotá, Colombia',
+      email: 'funcoramed@gmail.com'
     },
     createdAt: '2023-03-10T10:00:00Z',
     updatedAt: '2024-01-15T10:00:00Z',
@@ -165,7 +168,8 @@ export const samplePets: Pet[] = [
     shelter: {
       name: 'Refugio Patitas Felices',
       contact: '+57 301 234 5678',
-      location: 'Bogotá, Colombia'
+      location: 'Bogotá, Colombia',
+      email: 'funcoramed@gmail.com'
     },
     createdAt: '2023-11-05T10:00:00Z',
     updatedAt: '2024-01-15T10:00:00Z',
@@ -207,7 +211,8 @@ export const samplePets: Pet[] = [
     shelter: {
       name: 'Refugio Patitas Felices',
       contact: '+57 301 234 5678',
-      location: 'Bogotá, Colombia'
+      location: 'Bogotá, Colombia',
+      email: 'funcoramed@gmail.com'
     },
     createdAt: '2023-10-12T10:00:00Z',
     updatedAt: '2024-01-15T10:00:00Z',
@@ -250,7 +255,8 @@ export const samplePets: Pet[] = [
     shelter: {
       name: 'Refugio Patitas Felices',
       contact: '+57 301 234 5678',
-      location: 'Bogotá, Colombia'
+      location: 'Bogotá, Colombia',
+      email: 'funcoramed@gmail.com'
     },
     createdAt: '2023-07-22T10:00:00Z',
     updatedAt: '2024-01-15T10:00:00Z',
@@ -292,7 +298,8 @@ export const samplePets: Pet[] = [
     shelter: {
       name: 'Refugio Patitas Felices',
       contact: '+57 301 234 5678',
-      location: 'Bogotá, Colombia'
+      location: 'Bogotá, Colombia',
+      email: 'funcoramed@gmail.com'
     },
     createdAt: '2024-05-15T10:00:00Z',
     updatedAt: '2024-01-15T10:00:00Z',
@@ -334,7 +341,8 @@ export const samplePets: Pet[] = [
     shelter: {
       name: 'Refugio Patitas Felices',
       contact: '+57 301 234 5678',
-      location: 'Bogotá, Colombia'
+      location: 'Bogotá, Colombia',
+      email: 'funcoramed@gmail.com'
     },
     createdAt: '2023-09-08T10:00:00Z',
     updatedAt: '2024-01-15T10:00:00Z',
@@ -344,7 +352,7 @@ export const samplePets: Pet[] = [
     id: 'sasha-009',
     name: 'Sasha',
     type: 'Perro',
-    age: { months: 10 },
+    age: { years: 1, months: 4 },
     sex: 'Hembra',
     size: 'Mediano',
     health: {
@@ -376,7 +384,8 @@ export const samplePets: Pet[] = [
     shelter: {
       name: 'Refugio Patitas Felices',
       contact: '+57 301 234 5678',
-      location: 'Bogotá, Colombia'
+      location: 'Bogotá, Colombia',
+      email: 'funcorame@gmail.com'
     },
     createdAt: '2024-01-10T10:00:00Z',
     updatedAt: '2024-01-15T10:00:00Z',
