@@ -62,16 +62,20 @@ function PetCard({ pet }: { pet: typeof samplePets[0] }) {
             className="object-cover group-hover:scale-105 transition-transform duration-300"
             sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 25vw"
           />
-          {/* Badge de estado */}
-          <div className="absolute top-3 right-3">
-            <span className={`px-2 py-1 rounded-full text-xs font-medium ${
-              pet.adoptionStatus === 'Adoptada' 
-                ? 'bg-red-500 text-white' 
-                : 'bg-primary text-primary-foreground'
-            }`}>
-              {pet.adoptionStatus}
-            </span>
-          </div>
+          {/* Franja superior para mascotas adoptadas */}
+          {pet.adoptionStatus === 'Adoptada' && (
+            <div className="absolute top-0 left-0 right-0 bg-red-400/80 text-white text-center py-2 text-xs font-medium">
+              ¡Adoptada!
+            </div>
+          )}
+          {/* Badge de estado para disponibles */}
+          {pet.adoptionStatus !== 'Adoptada' && (
+            <div className="absolute top-3 right-3">
+              <span className="px-2 py-1 rounded-full text-xs font-medium bg-primary text-primary-foreground">
+                {pet.adoptionStatus}
+              </span>
+            </div>
+          )}
         </div>
         
         {/* Información */}
